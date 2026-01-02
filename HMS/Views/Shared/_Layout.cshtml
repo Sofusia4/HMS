@@ -1,49 +1,288 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿@using HMS.Interfaces;
+<!DOCTYPE HTML>
+<html lang="en-US">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - HMS</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/HMS.styles.css" asp-append-version="true" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">HMS</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Home - Hotel Management System HTML Template - HMS</title>
+	<meta name="description" content="Cryptco">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2026 - HMS - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" href="~/assets/images/favicon.png">
+	<!-- bootstrap CSS -->
+	<link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+	<!-- owl-carousel CSS -->
+	<link rel="stylesheet" href="~/assets/css/owl.carousel.css" type="text/css" media="all" />
+	<!-- font-awesome CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+	<!-- icomoon CSS -->
+	<link rel="stylesheet" href="~/assets/fonts/themability-font.css" type="text/css" media="all">
+	<!-- Main Style CSS -->
+	<link rel="stylesheet" href="~/assets/css/style.css" type="text/css" media="all" />
+	<!-- Font -->
+	<link href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<!--themability_megamenu css-->
+	<link rel="stylesheet" href="~/assets/css/themability_megamenu.css">
+</head>
+
+
+@* @inject IContactInfo _contactInfo;
+@inject IProduct _products;
+@inject ICategory _categories;
+
+@{
+	ContactInfo info = _contactInfo.GetContactInfo();
+	var products = _products.GetProducts();
+	var categories = _categories.GetCategories();
+} *@
+
+<body class="homepage">
+	<div class="loader"></div>
+	<!-- HEADER DEFAULT MANU AREA -->
+	<nav id="top">
+		<div class="container">
+			<div class="top-left"></div>
+			<div class="top-right">
+				<div class="pull-left"></div>
+				<div class="pull-left"></div>
+				<div id="top-links" class="nav pull-right hidden"></div>
+			</div>
+		</div>
+	</nav>
+
+	<header class="home">
+		<div class="container">
+			<div class="header-inner">
+				<div class="header-left">
+					<div id="logo">
+						<a asp-action="Index" asp-controller="Home">
+							<img src="~/assets/images/logo-white.png" title="Your Store" alt="Your Store" class="img-responsive">
+						</a>
+					</div>
+				</div>
+				<div class="header-center">
+					<div class="themability_megamenu-style-dev">
+						<div class="responsive themability_default">
+
+							<nav class="navbar-default">
+								<div class=" container-themability_megamenu   horizontal ">
+									<div class="navbar-header">
+										<button type="button" id="show-themability_megamenu" data-toggle="collapse" class="navbar-toggle">
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+											<span class="icon-bar"></span>
+										</button>
+									</div>
+
+									<div class="themability_megamenu-wrapper megamenu_typeheader">
+
+										<span id="remove-themability_megamenu" class="fa fa-times"></span>
+
+										<div class="themability_megamenu-pattern">
+											<div class="container">
+												<ul class="themability_megamenu" data-megamenuid="55" data-transition="slide" data-animationtime="500">
+
+													<li class="home current-active active-first">
+														<a asp-action="Index" asp-controller="Home">
+															<span><strong> Home </strong></span>
+														</a>
+													</li>
+																																							
+													<li class="">
+														<p class="close-menu"></p>
+														<a asp-action="SendMessage" asp-controller="Contact" class="clearfix">
+															<strong>
+																Contact Us
+															</strong>
+														</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</div>
+							</nav>
+						</div>
+					</div>
+
+				</div>
+				<div class="header-right">					
+					<div class="cart-content">
+						<div id="cart" class="btn-group btn-block">
+							<a asp-action="Index" asp-controller="Cart">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-basket2-fill" viewBox="0 0 16 16">
+									<path d="M5.929 1.757a.5.5 0 1 0-.858-.514L2.217 6H.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h.623l1.844 6.456A.75.75 0 0 0 3.69 15h8.622a.75.75 0 0 0 .722-.544L14.877 8h.623a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1.717L10.93 1.243a.5.5 0 1 0-.858.514L12.617 6H3.383zM4 10a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0zm3 0a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0zm4-1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1" />
+								</svg>
+							</a>
+						</div>
+					</div>
+
+					<div id="header_ac" class="dropdown">
+						<a href="index.html#" title="My Account" class="dropdown-toggle" data-toggle="dropdown">
+							@* <i class="icon-user1"></i> *@
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+								<path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+							</svg>
+							<span class="hidden">My Account</span><span class="caret hidden"></span>
+						</a>
+						<ul class="dropdown-menu dropdown-menu-right account-link-toggle">
+							@if (User.Identity.IsAuthenticated)
+							{
+								@if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+								{
+									<li><a asp-controller="Panel" asp-action="Index">Panel</a></li>
+								}
+								<li>
+									<a asp-controller="Account" asp-action="AccountSettings">Settings</a>
+								</li>
+								<li><a asp-controller="Account" asp-action="Logout">Log Out</a></li>
+
+							}
+							else
+							{
+								<li>
+									<a asp-controller="Account" asp-action="Register">Register</a>
+								</li>
+								<li><a asp-controller="Account" asp-action="Login">Log In</a></li>
+							}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</header>
+
+	<!-- .HEADER MENU AREA -->
+	@RenderBody()
+
+
+	<!-- footer -->
+	<footer>
+		<div class="container">
+			<div class="footer-top">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="position-footer-left">
+							<h5 class="toggled title">
+								contact
+								<!-- <span class="toggle-open"><i class="fa fa-chevron-down"></i></span> -->
+							</h5>
+							<ul class="list-unstyled">
+								<li>
+									<div class="site">
+										<div class="contact_title"><i class="fa-solid fa-location-dot"></i></div>
+										<div class="contact_site">Kyiv</div>
+									</div>
+								</li>
+								<li>
+									<div class="phone">
+										<div class="contact_title"><i class="fa fa-phone"></i></div>
+										<div class="contact_site">+380987654321</div>
+									</div>
+								</li>
+								<li>
+									<div class="email">
+										<div class="contact_title"><i class="fa fa-envelope"></i></div>
+										<div class="contact_site">test@gmail.com</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<h5 class="toggled">Quick links</h5>
+						<ul class="list-unstyled">
+							<li><a asp-action="Index" asp-controller="Home" class="contact_site">Home</a></li>
+							<li>
+								<a href="about.html" class="contact_site">
+									About
+									Us
+								</a>
+							</li>
+							<li>
+								<a href="contact.html" class="contact_site">
+									Contact
+									Us
+								</a>
+							</li>
+							<li><a href="shop.html" class="contact_site">Shop</a></li>
+							<li><a href="index.html#">Terms & Conditions</a></li>
+						</ul>
+					</div>
+					<div class="col-md-3">
+						<h5 class="toggled">Extras</h5>
+						<ul class="list-unstyled">
+							<li>
+								<a href="privacy-policy.html" class="contact_site">
+									Privacy
+									Policy
+								</a>
+							</li>
+							<li>
+								<a href="site-map.html">
+									Site
+									Map
+								</a>
+							</li>
+							<li><a href="my-account.html">My Account</a></li>
+						</ul>
+					</div>
+					<div class="col-md-3">
+						<div class="position-footer-right">
+							<div class="follow-link">
+								<h4>find us on</h4>
+								<div class="social-media">
+									<a href="#" title="facebook"><i class="fa-brands fa-facebook-f"></i></a>
+									<a href="#" title="facebook"><i class="fa-brands fa-instagram"></i></a>
+								</div>
+							</div>
+							<div class="payment-link">
+								<h4>payment</h4>
+								<div class="payment-method">
+									<a><i class="fa-brands fa-cc-visa"></i></a>
+									<a><i class="fa fa-credit-card"></i></a>
+									<a><i class="fa-brands fa-cc-mastercard"></i></a>
+									<a><i class="fa-brands fa-cc-paypal"></i></a>
+									<a><i class="fa-brands fa-cc-discover"></i></a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- <hr> -->
+			<p class="copyright"><a href="index.html#"></a>© 2026 Hotel Management System - All Rights Reserved.</p>
+		</div>
+	</footer>
+
+	<a class="scrollToTop back-to-top" asp-action="Index" asp-controller="Home" data-toggle="tooltip" title="" data-original-title="Top"><i class="fa fa-angle-up"></i></a>
+
+	<!-- .footer -->
+
+	<script data-cfasync="false" src="~/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+	<script src="~/assets/js/vendors/jquery-2.1.1.min.js" type="text/javascript"></script>
+
+	<!-- bootstrap js -->
+	<script type="text/javascript" src="~/assets/js/bootstrap.min.js"></script>
+	<!-- owl-carousel js -->
+	<script type="text/javascript" src="~/assets/js/owl.carousel.min.js"></script>
+	<!-- js -->
+	<script src="~/assets/js/themability_megamenu.js"></script>
+
+	<!-- wow javascript -->
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" type="text/javascript"></script>
+	<script type="text/javascript">new WOW().init();</script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet" />
+	<!-- Main js -->
+	<script type="text/javascript" src="~/assets/js/theme.js"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+
+
 </body>
+
 </html>
+
+

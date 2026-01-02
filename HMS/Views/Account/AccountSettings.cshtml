@@ -1,0 +1,82 @@
+﻿@using HMS.ViewModels;
+@model UserSettingsViewModel
+@{
+    ViewData["Title"] = "User Settings Page";
+}
+
+@Html.Partial("_StylesPartial", Model)
+
+
+
+<!-- My Account -->
+<div class="blog-section">
+    <div class="container">
+        <div class="row">
+            <div id="content" class="col-sm-9  all-blog my-account">
+                <div class="breadcrumb-main">
+                    <div class="breadcrumb-container clearfix">
+                        <ul class="breadcrumb">
+                            <li><a asp-action="Index" asp-controller="Home">Back to Home</a></li>
+                            <li>
+                                <form asp-controller="Account" asp-action="DeleteAccount" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <input type="submit" value="Delete account" class="btn btn-outline-danger">
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <form asp-action="AccountSettings" asp-controller="Account" method="post" enctype="multipart/form-data" class="form-horizontal well">
+                            <fieldset id="account">
+                                <legend>Account Settings</legend>
+                                <div asp-validation-summary="ModelOnly"></div>
+                                <div class="form-group required">
+                                    <label asp-for="FirstName" class="col-sm-2 control-label" for="input-firstname">FirstName</label>
+                                    <div class="col-sm-10">
+                                        <input asp-for="FirstName" type="text" name="firstname" value="@Model.FirstName" placeholder="FirstName"
+                                               id="input-firstname" class="form-control">
+                                    </div>
+                                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group required">
+                                    <label asp-for="LastName" class="col-sm-2 control-label" for="input-lastname">LastName</label>
+                                    <div class="col-sm-10">
+                                        <input asp-for="LastName" type="text" name="lastname" value="@Model.LastName" placeholder="LastName"
+                                               id="input-lastname" class="form-control">
+                                    </div>
+                                    <span asp-validation-for="LastName" class="text-danger"></span>
+                                </div>
+                                <div class="form-group required">
+                                    <label asp-for="Email" class="col-sm-2 control-label" for="input-email">Email</label>
+                                    <div class="col-sm-10">
+                                        <input asp-for="Email" type="email" name="email" value="@Model.Email" placeholder="Email"
+                                               id="input-email" class="form-control">
+                                    </div>
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group required">
+                                    <label asp-for="PhoneNumber" class="col-sm-2 control-label">Phone number</label>
+                                    <div class="col-sm-10">
+                                        <input asp-for="PhoneNumber" value="@Model.PhoneNumber" placeholder="Phone number" class="form-control">
+                                    </div>
+                                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                                </div>
+                                <input type="submit" value="Save" class="btn btn-primary">
+                                <input type="reset" value="Cancel" class="btn btn-secondary">
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- .My Account -->
+
+
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    @await Html.PartialAsync("_ScriptsPartial")
+}

@@ -1,0 +1,51 @@
+﻿@using HMS.ViewModels;
+@model RegisterViewModel
+@{
+	ViewData["Title"] = "Email confirmation Page";
+}
+
+@Html.Partial("_StylesPartial", Model)
+
+
+
+<div class="themability-testimonial-block top-margin-all wow fadeInUp">
+	<div class="themability-testimonial container box-module box-content">
+		<div class="customers-text">
+			<h3>Email confirmation</h3>
+		</div>
+		<div class="block_box">
+			<div class="row">
+				<div class="category-box">
+					<div class="owl-carousel owl-theme owl-loaded owl-drag">
+						<div class="customers-said owl-carousel">
+							<div class="row-items category-layout col-xs-12">
+								<div class="tetimonial-image-content">
+									<div class="themability-testimonial-content">
+										<div class="themability-testimonial-author">Success!</div>
+									</div>
+								</div>
+								<div class="themability-testimonial-text">
+									<p>
+										A email has been send to youremail@domain.com. Please check for an
+										email from company and click
+										on the included link to finish your registration
+									</p>
+								</div>
+								<div class="themability-testimonial-text">
+									<a asp-action="Register" asp-controller="Account" class="btn btn-primary mt-3">Back to Register</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+@section Scripts{
+	@await Html.PartialAsync("_ValidationScriptsPartial")
+	@await Html.PartialAsync("_ScriptsPartial")
+}

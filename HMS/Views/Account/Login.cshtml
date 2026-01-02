@@ -1,0 +1,68 @@
+﻿@using HMS.ViewModels;
+@model LoginViewModel
+@{
+    ViewData["Title"] = "Login Page";
+}
+
+@Html.Partial("_StylesPartial", Model)
+
+
+
+<!-- My Account -->
+<div class="blog-section">
+    <div class="container">
+        <div class="row">
+            <div id="content" class="col-sm-9  all-blog my-account">
+                <div class="breadcrumb-main">
+                    <div class="breadcrumb-container clearfix">
+                        <ul class="breadcrumb">
+                            <li><a asp-action="Index" asp-controller="Home">Back to Home</a></li>
+                            <li><a asp-action="Register" asp-controller="Account">Register</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="well">
+                            <h2>Login</h2>
+                            <form asp-action="Login" asp-controller="Account" asp-route-returnUrl="@Model.ReturnUrl" method="post" enctype="multipart/form-data">
+                                <div asp-validation-summary="ModelOnly"></div>
+                                <div class="form-group">
+                                    <label asp-for="Email" class="control-label" for="input-email">Email Address</label>
+                                    <input asp-for="Email" type="text" name="email" value="" placeholder="Email Address"
+                                           id="input-email" class="form-control">
+                                    <span asp-validation-for="Email" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Password" class="control-label" for="input-password">Password</label>
+                                    <input asp-for="Password" type="password" name="password" value="" placeholder="Password"
+                                           id="input-password" class="form-control">
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                                </div>
+                                <div class="buttons clearfix">
+                                    <div class="form-group">
+                                        <p>
+                                            Remember me?
+                                            <input asp-for="RememberMe" type="checkbox" class="form-check-input">
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <a asp-action="ForgotPassword" asp-controller="Account" class="text-primary float-right">Forgot Password?</a>
+                                </div>
+                                <input type="submit" value="Login" class="btn btn-primary">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- .My Account -->
+
+
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    @await Html.PartialAsync("_ScriptsPartial")
+}
