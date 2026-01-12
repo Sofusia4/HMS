@@ -18,6 +18,10 @@ namespace HMS.Data
                 {
                     await roleManager.CreateAsync(new IdentityRole("Editor"));
                 }
+                if (await roleManager.FindByNameAsync("Guest") == null)
+                {
+                    await roleManager.CreateAsync(new IdentityRole("Guest"));
+                }
             }
 
             if (!userManager.Users.Any())
@@ -25,7 +29,7 @@ namespace HMS.Data
                 //Добавляем пользователей, через анонимный массив
                 var users = new[]
                 {
-                new { Email = "***", FirstName = "admin", LastName = "admin", Password = "***", PhoneNumber = "+380862684823" }
+                new { Email = "sofusiay04@gmail.com", FirstName = "admin", LastName = "admin", Password = "qwerty", PhoneNumber = "+380862684823" }
                 //new { Email = "alex@gmail.com", FirstName = "Alex", LastName = "Yefimova", Password = "DS(A)DS"  },
                 //new { Email = "marry@in.ua", FirstName = "Marry", LastName = "Yefimova", Password = "q1d561SD"  },
                 //new { Email = "tom@ukr.net", FirstName = "Tom", LastName = "Yefimova", Password = "12312DSAss"  },

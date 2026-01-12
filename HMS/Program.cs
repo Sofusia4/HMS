@@ -33,6 +33,8 @@ builder.Services.AddIdentity<User, IdentityRole>(opts =>
     .AddEntityFrameworkStores<ApplicationContext>();
 
 builder.Services.AddTransient<IUserDelete, UserDeleteRepository>();
+builder.Services.AddTransient<IHotel, HotelRepository>();
+builder.Services.AddTransient<IRoom, RoomRepository>();
 
 var app = builder.Build();
 
@@ -44,8 +46,11 @@ using (var scope = app.Services.CreateScope())
         var userManager = services.GetRequiredService<UserManager<User>>();
         var rolesManager = services.GetRequiredService<RoleManager<IdentityRole>>();
         await RoleInitializer.InitializeAsync(userManager, rolesManager);
-    }
-    catch (Exception ex)
+		var applicationContext = services.GetRequiredService<ApplicationContext>();
+		await ContentInitializer.HotelsInitializeAsync(applicationContext);
+		await ContentInitializer.RoomsInitializeAsync(applicationContext);
+	}
+	catch (Exception ex)
     {
         var logger = services.GetRequiredService<ILogger<Program>>();
         logger.LogError(ex, "An error occurred while seeding the database.");

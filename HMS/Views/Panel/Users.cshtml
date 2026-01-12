@@ -1,0 +1,105 @@
+﻿@using HMS.Models.Pages;
+@model PagedList<User>
+@{
+	Layout = "_PanelLayout";
+}
+
+<div id="content" class="col-sm-9  all-blog">
+	<div class="breadcrumb-main">
+		<div class="breadcrumb-container clearfix">
+			<h1 class="page-title">Users</h1>
+			<ul class="breadcrumb">
+				<li><a asp-action="Index" asp-controller="Home">Home</a></li>
+				<li><a asp-action="Users" asp-controller="Panel">Users</a></li>
+			</ul>
+		</div>
+	</div>
+    <a class="btn btn-sm btn-primary" asp-action="CreateOrUpdateUser" asp-controller="Panel">AddUser</a>
+	<div class="information-information">
+		<div class="text-center">
+            @{
+                ViewBag.searches = new string[] { "FirstName", "LastName", "Email" };
+                ViewBag.sorts = new string[] { "FirstName", "LastName", "Email" };
+            }
+            @Html.Partial("PageOptions", Model)
+            <div class="col-1 text-right">
+                <a asp-action="Users" asp-controller="Panel" class="btn btn-secondary">Reset</a>
+            </div>
+        </div>
+
+
+        <div class="p-5 mb-4 bg-light rounded-3 ovx table-responsive">
+            <table class="table">
+                <tr>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Email</th>
+                    <th>Phone number</th>
+                    <th></th><th></th><th></th></tr>
+                @foreach (var user in Model)
+                {
+                    @*Обязательно прописываем данный атрибут
+                С помощью него мы удалим данную строку,
+                используя JavaScript*@
+                    <tr data-rowid="@user.Id">
+                        <td>@user.FirstName</td>
+                        <td>@user.LastName</td>
+                        <td>@user.Email</td>
+                        <td>@user.PhoneNumber</td>
+                        <td><a class="btn btn-sm btn-primary" asp-action="EditRoles" asp-controller="Panel" asp-route-userId="@user.Id">Role</a></td>
+                        <td><a class="btn btn-sm btn-primary" asp-action="CreateOrUpdateUser" asp-controller="Panel" asp-route-userId="@user.Id">Edit</a></td>
+                        <td>
+                            @*Обязательно прописываем onClick и метод, который будет обрабатывать клик*@
+                            <button onclick="deleteUser('@user.Id')" class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            <div class="text-center">
+                @await Html.PartialAsync("Pages", Model)
+            </div>
+
+            @await Html.PartialAsync("_Modal", "Delete selected user?")
+
+            @section Scripts {
+                <script>
+                    async function deleteUser(userId) {
+
+                        const btnYes = document.getElementById('btn-Yes');
+                        const btnNo = document.getElementById('btn-No');
+
+                        $('#confirmModal').modal('show');
+
+                        //Если нажали да, удаляем
+                        btnYes.onclick = () => {
+                            const deleteItem = fetch(`/panel/delete-user/?userId=${userId}`, { method: 'DELETE' })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok');
+                                    }
+                                    //Удаляем строку
+                                    document.querySelector("tr[data-rowid='" + userId + "']").remove();
+                                    //Закрываем модальное окно
+                                    $('#confirmModal').modal('hide');
+                                })
+                                .catch(error => {
+                                    console.error('There was a problem with the fetch operation:', error);
+                                    // Обработка ошибки удаления
+                                });
+                        }
+                        //Если нажали нет, скрываем
+                        btnNo.onclick = () => {
+                            $('#confirmModal').modal('hide');
+                        }
+                    }
+                </script>
+            }
+
+        </div>
+                
+
+	</div>
+
+</div>
+

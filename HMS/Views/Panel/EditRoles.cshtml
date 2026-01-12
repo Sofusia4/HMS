@@ -1,0 +1,46 @@
+﻿@using Microsoft.AspNetCore.Identity;
+@using HMS.ViewModels;
+@model ChangeRoleViewModel
+@{
+    Layout = "_PanelLayout";
+}
+
+<div id="content" class="col-sm-9  all-blog">
+    <div class="breadcrumb-main">
+        <div class="breadcrumb-container clearfix">
+            <h1 class="page-title">Contact</h1>
+            <ul class="breadcrumb">
+                <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                <li><a asp-action="Users" asp-controller="Panel">Users</a></li>
+                <li><a asp-action="EditRoles" asp-controller="Panel">EditRoles</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="information-information">
+        <div class="row">
+            <div class="col-sm-6">
+                <form asp-action="EditRoles" asp-controller="Panel" style="width:690px" method="post" enctype="multipart/form-data" class="form-horizontal well">
+                    <fieldset id="account">
+                        <legend>Edit Roles for @Model.UserEmail</legend>
+
+                        <div class="form-group required">
+                            @foreach (IdentityRole role in Model.AllRoles)
+                            {
+                                <input type="checkbox" name="roles" value="@role.Name"
+                                   @(Model.UserRoles.Contains(role.Name) ? "checked=\"checked\"" : "") />
+                                @role.Name <br />
+                            }
+                        </div>
+                        
+
+                        <input type="hidden" name="userId" value="@Model.UserId" />
+                        
+                        @Html.AntiForgeryToken()
+                        <input type="submit" value="Save" class="btn btn-primary">
+                    </fieldset>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,192 @@
+﻿@using HMS.Interfaces;
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>About Us - Hotel Management System HTML Template - HMS</title>
+	<meta name="description" content="Cryptco">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" href="~/assets/images/favicon.png">
+	<!-- bootstrap CSS -->
+	<link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
+	<!-- owl-carousel CSS -->
+	<link rel="stylesheet" href="~/assets/css/owl.carousel.css" type="text/css" media="all" /> 
+	<!-- font-awesome CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" />
+	<!-- icomoon CSS -->
+	<link rel="stylesheet" href="~/assets/fonts/themability-font.css" type="text/css" media="all" />
+	<!-- Main Style CSS -->
+	<link rel="stylesheet" href="~/assets/css/style.css" type="text/css" media="all" /> 
+	<!-- Font -->
+	<link
+		href="https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;400;500;600;700;800;900&display=swap"
+		rel="stylesheet">
+	<!-- themability_megamenu css -->
+	<link rel="stylesheet" href="~/assets/css/themability_megamenu.css">
+</head>
+
+@* @inject IContactInfo _contactInfo;
+
+@{
+	ContactInfo info = _contactInfo.GetContactInfo();
+} *@
+
+<body class="homepage">
+	<div class="loader"></div>
+	<!-- HEADER DEFAULT MANU AREA -->
+	<header class="">
+		<div class="container">
+			<div class="header-inner">
+				<div class="header-left">
+					<div id="logo">
+						<a asp-action="Index" asp-controller="Home">
+							<img src="~/assets/images/logo-white.png" title="Your Store" alt="Your Store"
+								class="img-responsive">
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
+  <!-- .HEADER MENU AREA -->
+	<!-- About Us -->
+	<div class="blog-section">
+		<div class="container">
+			<div class="row">
+				<aside id="column-left" class="col-sm-3">
+					<div class="account-content list-group">
+						<div class="box-content">
+							<h3 class="toggled relative">Panel</h3>
+							<ul class="list-unstyled">
+								<li><a asp-action="Index" asp-controller="Panel" class="list-group-item">Index</a></li>
+								<li><a asp-action="Users" asp-controller="Panel" class="list-group-item">Users</a></li>
+								<li><a asp-action="Products" asp-controller="Product" class="list-group-item">Products</a></li>
+								<li><a asp-action="Categories" asp-controller="Category" class="list-group-item">Categories</a></li>
+								<li><a asp-action="Orders" asp-controller="Order" class="list-group-item">Orders</a></li>
+								@* <li><a asp-action="UpdateContact" asp-controller="Panel" class="list-group-item">Contact</a></li>
+								<li><a asp-action="UpdateDeliveryInfo" asp-controller="Panel" class="list-group-item">Delivery Information</a></li> *@
+							</ul>
+						</div>
+					</div>
+					
+				</aside>
+
+				@RenderBody()
+
+			</div>
+		</div>
+	</div>
+	<!-- .About Us -->
+	<!-- footer -->
+	<footer>
+		<div class="container">
+			<div class="footer-top">
+				<div class="row">
+					<div class="col-md-3">
+						<div class="position-footer-left">
+							<h5 class="toggled title">
+								contact
+								<!-- <span class="toggle-open"><i class="fa fa-chevron-down"></i></span> -->
+							</h5>
+							<ul class="list-unstyled">
+								<li>
+									<div class="site">
+										<div class="contact_title"><i class="fa-solid fa-location-dot"></i></div>
+										<div class="contact_site">Kyiv@* @info.Address *@</div>
+									</div>
+								</li>
+								<li>
+									<div class="phone">
+										<div class="contact_title"><i class="fa fa-phone"></i></div>
+										<div class="contact_site">+380987654321@* @info.PhoneNumber *@</div>
+									</div>
+								</li>
+								<li>
+									<div class="email">
+										<div class="contact_title"><i class="fa fa-envelope"></i></div>
+										<div class="contact_site">test@gmail.com@* @info.Email *@</div>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-3">
+						<h5 class="toggled">Quick links</h5> 						
+						<ul class="list-unstyled">
+							<li><a asp-action="Index" asp-controller="Home" class="contact_site">Home</a></li>
+							<li><a href="about.html" class="contact_site">About
+									Us</a></li>			
+							<li><a href="contact.html" class="contact_site">Contact
+									Us</a></li>
+							<li><a href="shop.html" class="contact_site">Shop</a></li>
+							<li><a href="about.html#">Terms & Conditions</a></li>
+						</ul>
+					</div>
+
+					<div class="col-md-3">
+						<h5 class="toggled">Extras</h5>
+						<ul class="list-unstyled">
+							<li><a href="delivery-information.html" class="contact_site">Delivery
+									Information</a></li>
+							<li><a href="privacy-policy.html" class="contact_site">Privacy
+									Policy</a>
+							</li>
+
+							<li><a href="site-map.html">Site
+									Map</a></li>
+							<li><a href="my-account.html">My Account</a></li>
+						</ul>
+					</div>
+					<div class="col-md-3">
+						<div class="position-footer-right">
+							<div class="follow-link">
+								<h4>find us on</h4>
+								<div class="social-media">
+									<a href="#" title="facebook"><i class="fa-brands fa-facebook-f"></i></a>
+									<a href="#" title="facebook"><i class="fa-brands fa-instagram"></i></a>
+								</div>
+							</div>
+							<div class="payment-link">
+								<h4>payment</h4>
+								<div class="payment-method">
+									<a><i class="fa-brands fa-cc-visa"></i></a>
+									<a><i class="fa fa-credit-card"></i></a>
+									<a><i class="fa-brands fa-cc-mastercard"></i></a>
+									<a><i class="fa-brands fa-cc-paypal"></i></a>
+									<a><i class="fa-brands fa-cc-discover"></i></a>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<!-- <hr> -->
+			<p class="copyright"><a href="about.html#"></a>© 2026 Hotel Management System - All Rights Reserved.</p>
+		</div>
+	</footer>
+	<a class="scrollToTop back-to-top" href="about.html" data-toggle="tooltip" title="" data-original-title="Top"><i
+			class="fa fa-angle-up"></i></a>
+	<!-- .footer -->
+	<script data-cfasync="false" src="~/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="~/assets/js/vendors/jquery-2.1.1.min.js" type="text/javascript"></script>
+	<!-- bootstrap js -->
+	<script type="text/javascript" src="~/assets/js/bootstrap.min.js"></script>
+	<!-- owl-carousel js -->
+	<script type="text/javascript" src="~/assets/js/owl.carousel.min.js"></script>
+	<!-- js -->
+	<script src="~/assets/js/themability_megamenu.js"></script>
+	<!-- Main js -->
+	<script type="text/javascript" src="~/assets/js/theme.js"></script>
+	<!-- javascript -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js" type="text/javascript"></script>
+	<script type="text/javascript">new WOW().init();</script>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css" rel="stylesheet"/>
+
+	<script type="text/javascript" src="~/assets/js/theme.js"></script>
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>
