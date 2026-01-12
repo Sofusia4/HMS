@@ -1,6 +1,7 @@
 ﻿using HMS.Data;
 using HMS.Interfaces;
 using HMS.Models;
+using HMS.Models.Pages;
 using Microsoft.EntityFrameworkCore;
 
 namespace HMS.Repositories
@@ -33,12 +34,22 @@ namespace HMS.Repositories
 
 		}
 
-		public async Task<IEnumerable<Room>> GetAllRoomsAsync()
+        public PagedList<Room> GetAll(QueryOptions options)
+        {
+            return new PagedList<Room>(_context.Rooms.AsNoTracking().Include(e => e.Hotel), options);
+        }
+
+        public async Task<IEnumerable<Room>> GetAllRoomsAsync()
 		{
 			return await _context.Rooms.AsNoTracking().ToListAsync();
 		}
 
-		public async Task<IEnumerable<Room>> GetAllRoomsByHotelAsync(string hotelId)
+        public PagedList<Room> GetAllRoomsByHotel(QueryOptions options, string hotelId)
+        {
+            return new PagedList<Room>(_context.Rooms.Include(e => e.Hotel).Where(e => e.HotelId == hotelId), options);
+        }
+
+        public async Task<IEnumerable<Room>> GetAllRoomsByHotelAsync(string hotelId)
 		{
 			return await _context.Rooms.Include(e => e.Hotel).Where(e => e.HotelId.Equals(hotelId)).ToListAsync();
 		}

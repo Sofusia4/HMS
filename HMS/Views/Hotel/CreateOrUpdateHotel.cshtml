@@ -1,0 +1,115 @@
+﻿@using HMS.ViewModels;
+@model CreateOrUpdateHotelViewModel
+@{
+    Layout = "_PanelLayout";
+    string actionName = Model.Id == "create" ? "Create" : "Update";
+}
+
+@Html.Partial("_StylesPartial", Model)
+
+
+<div id="content" class="col-sm-9  all-blog">
+    <div class="breadcrumb-main">
+        <div class="breadcrumb-container clearfix">
+            <h1 class="page-title">@actionName hotel</h1>
+            <ul class="breadcrumb">
+                <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                <li><a asp-action="Hotels" asp-controller="Hotel">Hotels</a></li>
+                <li><a asp-action="CreateOrUpdateHotel" asp-controller="Hotel">@actionName</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="information-information">
+        <div class="row">
+            <div class="col-sm-6">
+                <form asp-action="CreateOrUpdateHotel" asp-controller="Hotel" style="width:690px" method="post" enctype="multipart/form-data" class="form-horizontal well">
+                    <fieldset id="account">
+                        <legend>@actionName</legend>
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <div class="form-group required">
+                            <label asp-for="Name" class="col-sm-2 control-label">Name</label>
+                            <div class="col-sm-10">
+                                <input asp-for="Name" type="text" name="name" value="@Model.Name" placeholder="Name" class="form-control" required>
+                            </div>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                        <div class="form-group required">
+                            <label asp-for="NameEng" class="col-sm-2 control-label">NameEng</label>
+                            <div class="col-sm-10">
+                                <input asp-for="NameEng" type="text" name="nameeng" value="@Model.NameEng" placeholder="NameEng" class="form-control" required>
+                            </div>
+                            <span asp-validation-for="NameEng" class="text-danger"></span>
+                        </div>
+                        <div class="form-group required">
+                            <label asp-for="Description" class="col-sm-2 control-label">Description</label>
+                            <div class="col-sm-10">
+                                <textarea asp-for="Description" name="description" value="@Model.Description" rows="10" class="form-control" placeholder="Description" required></textarea>
+                            </div>
+                            <span asp-validation-for="Description" class="text-danger"></span>
+                        </div>
+                        <div class="form-group required">
+                            <label asp-for="DescriptionEng" class="col-sm-2 control-label">DescriptionEng</label>
+                            <div class="col-sm-10">
+                                <textarea asp-for="DescriptionEng" name="descriptioneng" value="@Model.DescriptionEng" rows="10" class="form-control" placeholder="DescriptionEng" required></textarea>
+                            </div>
+                            <span asp-validation-for="DescriptionEng" class="text-danger"></span>
+                        </div>
+                        <div class="form-group required">
+                            <label asp-for="City" class="col-sm-2 control-label">City</label>
+                            <div class="col-sm-10">
+                                <input asp-for="City" type="text" name="city" value="@Model.City" rows="10" class="form-control" placeholder="City" required>
+                            </div>
+                            <span asp-validation-for="City" class="text-danger"></span>
+                        </div>
+                        <div class="form-group required">
+                            <label asp-for="CityEng" class="col-sm-2 control-label">CityEng</label>
+                            <div class="col-sm-10">
+                                <input asp-for="CityEng" name="cityeng" value="@Model.CityEng" rows="10" class="form-control" placeholder="CityEng" required>
+                            </div>
+                            <span asp-validation-for="CityEng" class="text-danger"></span>
+                        </div>
+                        <div class="form-group required">
+                            <label asp-for="Address" class="col-sm-2 control-label">Address</label>
+                            <div class="col-sm-10">
+                                <input asp-for="Address" name="address" value="@Model.Address" rows="10" class="form-control" placeholder="Address" required>
+                            </div>
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group required">
+                            <label asp-for="AddressEng" class="col-sm-2 control-label">AddressEng</label>
+                            <div class="col-sm-10">
+                                <input asp-for="AddressEng" name="addresseng" value="@Model.AddressEng" rows="10" class="form-control" placeholder="AddressEng" required>
+                            </div>
+                            <span asp-validation-for="AddressEng" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-group required">
+
+                            <div class="bg-image mt-3">
+                                @if (Model.FullImageName != null)
+                                {
+                                    <img src="@Model.FullImageName" class="img-fluid" style="width:100px; height:100px;">
+                                }
+                                <div class="mask" style="background-color: rgba(0, 0, 0, 0.6);">
+                                    <div class="d-flex justify-content-center align-items-center h-100">
+                                        <p class="text-white mb-0">@(Model.Image is null ? "No image selected" : Model.Image)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="file" class="form-control" asp-for="File" value="@Model.File" accept="image/*" />
+                            <span asp-validation-for="File" class="text-danger"></span>
+
+                        </div>
+
+                        
+                    </fieldset>
+                    <input type="hidden" asp-for="@Model.Image" value="create">
+                    <input type="hidden" asp-for="@Model.FullImageName" value="create">
+                    <input type="hidden" asp-for="Id" value="@Model.Id">
+                    <input type="submit" value="Save" class="btn btn-primary">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

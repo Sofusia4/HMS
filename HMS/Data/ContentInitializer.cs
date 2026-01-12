@@ -20,7 +20,9 @@ namespace HMS.Data
 							City = "Київ",
 							CityEng = "Kyiv",
 							Address = "бул. Т. Шевченка / вул. Є. Чикаленка, 5-7/29, Київ 01004, Україна",
-							AddressEng = "5-7/29 T. Shevchenka Blvd. / Y. Chykalenka St., Kyiv 01004, Ukraine"
+							AddressEng = "5-7/29 T. Shevchenka Blvd. / Y. Chykalenka St., Kyiv 01004, Ukraine",
+							FullImageName = "/hotelPhotos/premier.png",
+							Image = "premier.png"
 						},
 						new Hotel
 						{
@@ -31,7 +33,9 @@ namespace HMS.Data
 							City = "Київ",
 							CityEng = "Kyiv",
 							Address = "площа Перемоги, 1 м. Київ 01135, Україна",
-							AddressEng = "1 Peremohy Square, Kyiv 01135, Ukraine"
+							AddressEng = "1 Peremohy Square, Kyiv 01135, Ukraine",
+							FullImageName = "/hotelPhotos/lybid.jpg",
+							Image = "lybid.jpg"
 						},
 						new Hotel
 						{
@@ -42,7 +46,9 @@ namespace HMS.Data
 							City = "Львів",
 							CityEng = "Lviv",
 							Address = "вул. Матейка, 6, Львів 79007, Україна",
-							AddressEng = "6 Mateika St, Lviv 79007, Ukraine"
+							AddressEng = "6 Mateika St, Lviv 79007, Ukraine",
+							FullImageName = "/hotelPhotos/dnister.jpg",
+							Image = "dnister.jpg"
 						}
 					);
 				context.SaveChanges();

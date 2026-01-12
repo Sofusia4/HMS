@@ -1,0 +1,103 @@
+﻿@using HMS.Models.Pages;
+@model PagedList<Room>
+@{
+    Layout = "_PanelLayout";
+}
+
+<div id="content" class="col-sm-9  all-blog">
+    <div class="breadcrumb-main">
+        <div class="breadcrumb-container clearfix">
+            <h1 class="page-title">Rooms</h1>
+            <ul class="breadcrumb">
+                <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                <li><a asp-action="Rooms" asp-controller="Room">Rooms</a></li>
+            </ul>
+        </div>
+    </div>
+    <a class="btn btn-sm btn-primary" asp-action="CreateOrUpdateRoom" asp-controller="Room">Add Room</a>
+    <div class="information-information">
+        <div class="text-center">
+            @{
+                ViewBag.searches = new string[] { "Number", "RoomType", "Capacity" };
+                ViewBag.sorts = new string[] { "Number", "RoomType", "Capacity", "PricePerNight" };
+            }
+            @Html.Partial("PageOptions", Model)
+            <div class="col-1 text-right">
+                <a asp-action="Rooms" asp-controller="Room" class="btn btn-secondary">Reset</a>
+            </div>
+        </div>
+
+
+        <div class="p-5 mb-4 bg-light rounded-3 ovx table-responsive">
+            <table class="table">
+                <tr>
+                    <th>Number</th>
+                    <th>RoomType</th>
+                    <th>PricePerNight</th>
+                    <th>Capacity</th>
+                    <th>Description</th>
+                    <th>Hotel</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @foreach (var room in Model)
+                {
+                    <tr data-rowid="@room.Id">
+                        <td>@room.Number</td>
+                        <td>@room.RoomType</td>
+                        <td>@room.PricePerNight</td>
+                        <td>@room.Capacity</td>
+                        <td>@(room.Description.Length > 20 ? room.Description.Substring(0, 20) + "..." : room.Description)</td>
+                        <td>@room.Hotel.Name</td>
+                        <td><a class="btn btn-sm btn-primary" asp-action="CreateOrUpdateRoom" asp-controller="Room" asp-route-roomId="@room.Id">Edit</a></td>
+                        <td>
+                            <button onclick="deleteRoom('@room.Id')" class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            <div class="text-center">
+                @await Html.PartialAsync("Pages", Model)
+            </div>
+
+            @await Html.PartialAsync("_Modal", "Delete selected room?")
+
+            @section Scripts {
+                <script>
+                    async function deleteRoom(roomId) {
+
+                        const btnYes = document.getElementById('btn-Yes');
+                        const btnNo = document.getElementById('btn-No');
+
+                        $('#confirmModal').modal('show');
+
+                        btnYes.onclick = () => {
+                            const deleteItem = fetch(`/room/delete-room/?roomId=${roomId}`, { method: 'DELETE' })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok');
+                                    }
+                                    document.querySelector("tr[data-rowid='" + roomId + "']").remove();
+                                    $('#confirmModal').modal('hide');
+                                })
+                                .catch(error => {
+                                    console.error('There was a problem with the fetch operation:', error);
+                                });
+                        }
+                        //Если нажали нет, скрываем
+                        btnNo.onclick = () => {
+                            $('#confirmModal').modal('hide');
+                        }
+                    }
+                </script>
+            }
+
+        </div>
+
+
+    </div>
+
+</div>
+

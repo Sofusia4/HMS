@@ -1,6 +1,7 @@
 ﻿using HMS.Data;
 using HMS.Interfaces;
 using HMS.Models;
+using HMS.Models.Pages;
 using Microsoft.EntityFrameworkCore;
 
 namespace HMS.Repositories
@@ -23,6 +24,11 @@ namespace HMS.Repositories
 		{
 			_context.Hotels.Remove(hotel);
 			await _context.SaveChangesAsync();
+		}
+
+		public PagedList<Hotel> GetAll(QueryOptions options)
+		{
+			return new PagedList<Hotel>(_context.Hotels, options);
 		}
 
 		public async Task<IEnumerable<Hotel>> GetAllHotelsAsync()

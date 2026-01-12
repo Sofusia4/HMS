@@ -11,6 +11,8 @@
 		public string CityEng { get; set; }
 		public string Address { get; set; }
 		public string AddressEng { get; set; }
+		public string? FullImageName { get; set; }
+		public string? Image { get; set; }
 		public List<Room> Rooms { get; set; } = new List<Room>();
 	}
 }
