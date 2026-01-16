@@ -91,7 +91,7 @@ namespace HMS.Data
 							PricePerNight = 16000,
 							Capacity = 4,
 							Description = "Двокімнатний номер середньою площею 37 м2. Номер складається з вітальні та опочивальні. В номері – гостьовий туалет та ванна кімната (обладнана біде). Ширина ліжка від 160 см.",
-							FullImageName = "/roomPhotos/3/1.jpg",
+							FullImageName = "/roomPhotos/3/1.png",
 							Image = "1.jpg",
 							HotelId = context.Hotels.FirstOrDefault(e => e.NameEng.Equals("Premier Palace Hotel")).Id.ToString(),
 							Hotel = context.Hotels.FirstOrDefault(e => e.NameEng.Equals("Premier Palace Hotel"))
@@ -115,7 +115,7 @@ namespace HMS.Data
 							PricePerNight = 21000,
 							Capacity = 6,
 							Description = "Двокімнатний номер середньою площею 54 м2. Номер складається з вітальні та опочивальні. В номері – гостьовий туалет та ванна кімната (обладнана біде). Ширина ліжка від 160 до 180 см.",
-							FullImageName = "/roomPhotos/5/1.jpg",
+							FullImageName = "/roomPhotos/5/1.gif",
 							Image = "1.jpg",
 							HotelId = context.Hotels.FirstOrDefault(e => e.NameEng.Equals("Premier Palace Hotel")).Id.ToString(),
 							Hotel = context.Hotels.FirstOrDefault(e => e.NameEng.Equals("Premier Palace Hotel"))
@@ -127,7 +127,7 @@ namespace HMS.Data
 							PricePerNight = 10000,
 							Capacity = 2,
 							Description = "Однокімнатний двомісний номер середньою площею 30,3 м2, ванна – 5,3 м2 (більшість ванних обладнані біде). Ширина ліжка 180 см (King Size). Номер ідеально підходить для пар та ділових людей, які потребують більше комфорту. Можливе розміщення в номері з одним широким ліжком.",
-							FullImageName = "/roomPhotos/6/1.jpg",
+							FullImageName = "/roomPhotos/6/1.png",
 							Image = "1.jpg",
 							HotelId = context.Hotels.FirstOrDefault(e => e.NameEng.Equals("Premier Hotel Lybid")).Id.ToString(),
 							Hotel = context.Hotels.FirstOrDefault(e => e.NameEng.Equals("Premier Hotel Lybid"))
@@ -139,7 +139,7 @@ namespace HMS.Data
 							PricePerNight = 11000,
 							Capacity = 2,
 							Description = "Однокімнатний номер середньою площею 26 м2, ванна – 4,8 м2 (більшість ванних обладнані біде). Ширина ліжка 160 см. Номер чудово підходить для тих, хто подорожує один або приїхав у Київ у службових справах.",
-							FullImageName = "/roomPhotos/7/1.jpg",
+							FullImageName = "/roomPhotos/7/1.png",
 							Image = "1.jpg",
 							HotelId = context.Hotels.FirstOrDefault(e => e.NameEng.Equals("Premier Hotel Lybid")).Id.ToString(),
 							Hotel = context.Hotels.FirstOrDefault(e => e.NameEng.Equals("Premier Hotel Lybid"))
@@ -151,7 +151,7 @@ namespace HMS.Data
 							PricePerNight = 17000,
 							Capacity = 3,
 							Description = "Двокімнатний номер середньою площею 37 м2. Номер складається з вітальні та опочивальні. В номері – гостьовий туалет та ванна кімната (обладнана біде). Ширина ліжка від 160 см.",
-							FullImageName = "/roomPhotos/8/1.jpg",
+							FullImageName = "/roomPhotos/8/1.png",
 							Image = "1.jpg",
 							HotelId = context.Hotels.FirstOrDefault(e => e.NameEng.Equals("Premier Hotel Lybid")).Id.ToString(),
 							Hotel = context.Hotels.FirstOrDefault(e => e.NameEng.Equals("Premier Hotel Lybid"))
@@ -175,7 +175,7 @@ namespace HMS.Data
 							PricePerNight = 7000,
 							Capacity = 2,
 							Description = "Однокімнатний номер середньою площею 26 м2, ванна – 4,8 м2 (більшість ванних обладнані біде). Ширина ліжка 160 см. Номер чудово підходить для тих, хто подорожує один або приїхав у Київ у службових справах.",
-							FullImageName = "/roomPhotos/10/1.jpg",
+							FullImageName = "/roomPhotos/10/1.png",
 							Image = "1.jpg",
 							HotelId = context.Hotels.FirstOrDefault(e => e.NameEng.Equals("Premier Hotel Dnister")).Id.ToString(),
 							Hotel = context.Hotels.FirstOrDefault(e => e.NameEng.Equals("Premier Hotel Dnister"))

@@ -1,0 +1,82 @@
+﻿@model Room
+
+<div class="product-layout product-grid col-lg-4 col-md-6 col-sm-4 col-xs-4">
+	<div class="product-thumb">
+		<div class="image">
+			<a asp-action="GetProduct" asp-controller="Home" asp-route-productId="@Model.Id" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()" class="thumb-image">
+				<img src="@Model.FullImageName" alt="@Model.Number" title="@Model.Number" class="img-responsive">
+			</a>
+		</div>
+		<div class="product-description">
+			<div class="caption">
+				<div class="title-rating clearfix">
+					<h4 class="product-title">
+						<a asp-action="GetProduct" asp-controller="Home" asp-route-productId="@Model.Id">
+							@Model.Number
+						</a>
+					</h4>
+				</div>
+				<div class="price-cartbtn clearfix">
+					<p class="price">
+						Тип кімнати: @Model.RoomType 
+					</p>
+					<p class="price">
+						UAH @Model.PricePerNight
+					</p>
+					<p class="price">
+						Вмісткість: @Model.Capacity людей
+					</p>
+					<p class="description">
+						@Model.Description
+					</p>
+
+					<form asp-action="AddToCart" asp-controller="Cart" asp-route-productId="@Model.Id" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">
+						@Html.AntiForgeryToken()
+						<button class="addcart" type="submit">
+							<i class="icon-shopping-bag hidden"></i>
+							<span class="">Order Now</span>
+						</button>
+					</form>
+					
+					
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+@* <div class="product-layout product-list col-xs-12">
+	<div class="product-thumb">
+		<div class="image">
+			<a href="product.html" class="thumb-image">
+				<img src="@Model.ImageFullName" alt="@Model.Name" title="@Model.Name"
+					 class="img-responsive">
+			</a>
+		</div>
+		<div class="product-description">
+			<div class="caption">
+				<div class="title-rating clearfix">
+					<h4 class="product-title">
+						<a asp-action="GetProduct" asp-controller="Home" asp-route-productId="@Model.Id">@Model.Name</a>
+					</h4>
+				</div>
+
+				<div class="price-cartbtn clearfix">
+					<p class="price">
+						UAH @Model.Price
+					</p>
+					<p class="description">
+						@Model.Description
+					</p>
+					<button class="addcart" type="button">
+						<i class="icon-shopping-bag hidden"></i>
+						<span class="">
+							<a href="shopping-cart.html">Order Now</a>
+						</span>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div> *@

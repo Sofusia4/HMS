@@ -9,12 +9,14 @@ namespace HMS.Repositories
 	public class HotelRepository : IHotel
 	{
 		private readonly ApplicationContext _context;
-		public HotelRepository(ApplicationContext context)
-		{
-			_context = context;
-		}
+        private readonly IWebHostEnvironment _appEnvironment;
+        public HotelRepository(ApplicationContext context, IWebHostEnvironment appEnvironment)
+        {
+            _context = context;
+            _appEnvironment = appEnvironment;
+        }
 
-		public async Task AddHotelAsync(Hotel hotel)
+        public async Task AddHotelAsync(Hotel hotel)
 		{
 			_context.Hotels.Add(hotel);
 			await _context.SaveChangesAsync();
@@ -22,7 +24,18 @@ namespace HMS.Repositories
 
 		public async Task DeleteHotelAsync(Hotel hotel)
 		{
-			_context.Hotels.Remove(hotel);
+			var rooms = _context.Rooms.Where(r => r.HotelId.Equals(hotel.Id.ToString()));
+			if (rooms != null)
+			{
+				foreach (var r in rooms)
+				{
+                    if (System.IO.File.Exists(_appEnvironment.WebRootPath + r.FullImageName))
+                    {
+                        System.IO.File.Delete(_appEnvironment.WebRootPath + r.FullImageName);
+                    }
+                }
+			}            
+            _context.Hotels.Remove(hotel);
 			await _context.SaveChangesAsync();
 		}
 

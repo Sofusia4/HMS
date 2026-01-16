@@ -1,0 +1,6 @@
+﻿@model IEnumerable<Room>
+
+@foreach (Room room in Model)
+{
+    @await Html.PartialAsync("_Room", room)
+}

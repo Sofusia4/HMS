@@ -1,8 +1,240 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IndexViewModel
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<!-- Shop - Pizza HTML Template -->
+<div class="blog-section donuts">
+	<div class="container">
+		<div class="row">
+			<aside id="column-left" class="col-sm-3">
+				<div class="category-content">
+					<div class="box-category">
+						<h3 class="toggled relative">Hotels</h3>
+						<ul class="list-unstyled parent" id="select-category">
+							<li class="">
+								<a asp-action="Index" asp-controller="Home" asp-route-categoryId="all" class="list-group-item ">
+									All categories<span></span>
+								</a>
+							</li>
+							@foreach (var hotel in Model.Hotels)
+							{
+								<li class="">
+									<a asp-action="Index" asp-controller="Home" asp-route-categoryId="@hotel.Id" class="list-group-item ">
+										@hotel.Name<span></span>
+									</a>
+								</li>
+							}
+						</ul>
+					</div>
+				</div>
+				<div class="panel panel-default filter">
+					<div class="box-content">
+						<div id="filter">
+							<h3 class="toggled relative">Refine Search</h3>
+							<div class="filter_box">
+								<form asp-action="Index" asp-controller="Home" nethod="post">
+									<div class="list-group">
+										<div class="list-group-items">
+											<a class="list-group-item">color</a>
+											<div class="list-group-item">
+												<div id="filter-group1">
+													<div class="checkbox">
+														<label>
+															<input type="checkbox" name="type" value="@RoomType.Standard"
+																   class="form-check-input">
+															Standard rooms
+														</label>
+													</div>
+													<div class="checkbox">
+														<label>
+															<input type="checkbox" name="type" value="@RoomType.Luxury"
+																   class="form-check-input">
+															Luxury rooms
+														</label>
+													</div>
+													<div class="checkbox">
+														<label>
+															<input type="checkbox" name="type" value="@RoomType.Suite"
+																   class="form-check-input">
+															Suite rooms
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="list-group-items">
+											<a class="list-group-item">Price per night</a>
+											<div class="list-group-item">
+												<div id="filter-group2">
+													<div class="checkbox">
+														<label>
+															<input type="checkbox" name="price" value="1"
+																   class="form-check-input">
+															UAH 0 - UAH 99
+														</label>
+													</div>
+													<div class="checkbox">
+														<label>
+															<input type="checkbox" name="price" value="2"
+																   class="form-check-input">
+															UAH 100 - UAH 199
+														</label>
+													</div>
+													<div class="checkbox">
+														<label>
+															<input type="checkbox" name="price" value="3"
+																   class="form-check-input">
+															UAH 200 - UAH 299
+														</label>
+													</div>
+													<div class="checkbox">
+														<label>
+															<input type="checkbox" name="price" value="4"
+																   class="form-check-input">
+															UAH 300 - UAH 399
+														</label>
+													</div>
+													<div class="checkbox">
+														<label>
+															<input type="checkbox" name="price" value="5"
+																   class="form-check-input">
+															UAH 400 - UAH 499
+														</label>
+													</div>
+													<div class="checkbox">
+														<label>
+															<input type="checkbox" name="price" value="6"
+																   class="form-check-input">
+															UAH 500+
+														</label>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="panel-footer text-right">
+										<button type="submit" id="button-filter" class="btn btn-primary">
+											Refine
+											Search
+										</button>
+									</div>
+								</form>
+
+							</div>
+						</div>
+					</div>
+				</div>
+				@* <script type="text/javascript">
+				$('#button-filter').on('click', function () {
+				filter = [];
+
+				$('input[name^=\'filter\']:checked').each(function (element) {
+				filter.push(this.value);
+				});
+
+				location = '' + filter.join(',');
+				}); //-->
+				</script> *@
+				<div class="swiper-viewport">
+					<div id="banner0" class="swiper-container swiper-container-horizontal swiper-container-fade">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide swiper-slide-active">
+								<a asp-action="Index" asp-controller="Home">
+									<img src="~assets/images/banners/category_banner2.jpg" alt="Left Banner"
+										 class="img-responsive">
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
+			<div id="content" class="col-sm-9  all-blog">
+				<div class="breadcrumb-main">
+					<div class="breadcrumb-container clearfix">
+						<h1 class="page-title">Shop</h1>
+
+						<ul class="breadcrumb">
+							<li><a asp-action="Index" asp-controller="Home">Home</a></li>
+
+							<li><a asp-action="Index" asp-controller="Home" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">Shop</a></li>
+
+						</ul>
+					</div>
+				</div>
+				<div class="row">
+					<div class="category-img col-sm-12">
+						<img src="assets/images/banners/category_banner1.jpg" alt="shop" title="shop"
+							 class="img-thumbnail">
+					</div>
+					<div class="category-desc col-sm-12">
+						<p>
+							Horizon Stay – це мережа готелів, що дарує відчуття свободи та відкриття нових можливостей. 
+							Ми створюємо простір, де комфорт поєднується з натхненням для подорожей і незабутніх вражень. 
+							Horizon Stay – ваш ідеальний вибір для відпочинку, роботи та відкриття нових горизонтів у будь-якому куточку світу.
+						</p>
+					</div>
+				</div>
+
+				<div class="category-info">
+					<div class="row">
+						<div class="col-sm-7 col-xs-12 category-sorting">
+							<div class="sort-cat">
+								<div class="text-center">
+									@{
+										ViewBag.searches = new string[] { "Name", "Category.Name", "Type" };
+										ViewBag.sorts = new string[] { "Name", "Category.Name", "Type", "Price", "Weight", "Calories" };
+									}
+									@Html.Partial("PageOptions", Model.Rooms)
+									<div class="col-1 text-right">
+										<a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Reset</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="category-row row" id="rooms">
+					@foreach (var item in Model.Rooms)
+					{
+						@Html.Partial("_Room", item)
+					}
+				</div>
+
+				<div class="text-center">
+					<button id="showMore" class="btn btn-primary">Show more</button>
+				</div>
+
+
+				<div class="pagination-main">
+					<div class="row">
+						<div class="col-sm-6 text-left">
+							<div class="text-center">
+								@await Html.PartialAsync("Pages", Model.Rooms)
+							</div>
+						</div>
+						<div class="col-sm-6 text-right"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+<!-- .Shop - Pizza HTML Template -->
+@section Scripts {
+	<script>
+		var page = 2; //Начинаем со второй страницы, так как первая уже показана
+		var pageSize = 10;
+
+		$("#showMore").click(function () {
+			$.ajax({
+				url: "/get-more-rooms?page=" + page + "&pageSize=" + pageSize,
+				success: function (data) {
+					$("#rooms").append(data);
+					page++;
+				}
+			});
+		});
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery-ajax-unobtrusive@3.2.6/dist/jquery.unobtrusive-ajax.min.js"></script>
+}
