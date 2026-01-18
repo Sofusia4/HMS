@@ -35,6 +35,7 @@ builder.Services.AddIdentity<User, IdentityRole>(opts =>
 builder.Services.AddTransient<IUserDelete, UserDeleteRepository>();
 builder.Services.AddTransient<IHotel, HotelRepository>();
 builder.Services.AddTransient<IRoom, RoomRepository>();
+builder.Services.AddTransient<IRoomOrder, RoomOrderRepository>();
 
 var app = builder.Build();
 

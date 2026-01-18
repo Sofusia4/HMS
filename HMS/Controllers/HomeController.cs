@@ -14,35 +14,31 @@ namespace HMS.Controllers
 	{
 		private readonly IHotel _hotels;
 		private readonly IRoom _rooms;
-		//private readonly MapGenerator _generator;
-		//private readonly IDeliveryInfo _deliveryInfo;
+		private readonly IRoomOrder _orders;
 
 
+		private static string retUrl, pubId, message = "";
 
-		private static string retUrl, pubId;
-
-		public HomeController(IHotel hotels, IRoom rooms/*, MapGenerator generator, IDeliveryInfo deliveryInfo*/)
+		public HomeController(IHotel hotels, IRoom rooms, IRoomOrder orders)
 		{
 			_hotels = hotels;
 			_rooms = rooms;
-			//_generator = generator;
-			//_deliveryInfo = deliveryInfo;
+			_orders = orders;
 		}
 
-		public async Task<IActionResult> Index(QueryOptions? options, string? hotelId, RoomType[]? roomType, int[]? pricePerNight)
+		public async Task<IActionResult> Index(QueryOptions? options, string? hotelId, RoomType[]? roomType, string? city, int capacity)
 		{
 			var allHotels = await _hotels.GetAllHotelsAsync();
 
-			PagedList<Room> allRooms = _rooms.GetRoomsWithAdditionalOptions(hotelId, roomType, pricePerNight, options);
+			PagedList<Room> allRooms = _rooms.GetRoomsWithAdditionalOptions(hotelId, roomType, city, capacity, options);
 
-			//PagedList<Room> allRooms = _rooms.GetAll(options);
-
-			//         if (hotelId != "all" && hotelId != null)
-			//         {
-			//	allRooms = _rooms.GetAllRoomsByHotel(options, hotelId);
-			//}
-
-			ViewBag.HOTELiD = hotelId;
+			List<string> cities = await _hotels.GetAllCitiesAsync();
+			int maxCapacity = (await _rooms.GetAllRoomsAsync()).Max(e => e.Capacity);
+			
+			ViewBag.HotelId = hotelId;
+			ViewBag.Cities = cities;
+			ViewBag.MaxCapacity = maxCapacity;
+			ViewBag.RoomType = roomType;
 
 
 			return View(new IndexViewModel
@@ -51,6 +47,68 @@ namespace HMS.Controllers
 				Rooms = allRooms,
 			});
 		}
+
+		[HttpGet]
+		public async Task<IActionResult> FindRoomsForm()
+		{
+			List<string> cities = await _hotels.GetAllCitiesAsync();
+			int maxCapacity = (await _rooms.GetAllRoomsAsync()).Max(e => e.Capacity);
+
+			ViewBag.Cities = cities;
+			ViewBag.MaxCapacity = maxCapacity;
+
+			return View(new OrderViewModel());
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> FindRoomsForm(OrderViewModel model)
+		{
+			List<string> cities = await _hotels.GetAllCitiesAsync();
+			int maxCapacity = (await _rooms.GetAllRoomsAsync()).Max(e => e.Capacity);
+
+			ViewBag.Cities = cities;
+			ViewBag.MaxCapacity = maxCapacity;
+
+			if (ModelState.IsValid)
+			{
+				var rooms = await _rooms.GetAllRoomsWithHotelsAsync();
+				var orders = await _orders.GetAllRoomOrdersWithRoomsAndUsersAsync();
+				if (model.City != null && model.City != "all")
+				{
+					rooms = rooms.Where(e => e.Hotel.City.Contains(model.City) || e.Hotel.CityEng.Contains(model.City));
+				}
+				if (model.People > 0)
+				{
+					rooms = rooms.Where(e => e.Capacity >= model.People);
+				}
+
+				orders = orders.Where(e => (e.StartDate < model.StartDate && e.EndDate <= model.StartDate) || (e.StartDate >= model.EndDate && e.EndDate > model.EndDate));
+				
+				if (orders.Any())
+				{
+					var notAvailableRooms = orders.Select(e => e.RoomId).ToList();
+					rooms = rooms.Where(e => !notAvailableRooms.Contains(e.Id.ToString()));
+					if (rooms.Any())
+					{
+						ViewBag.Message = "";
+						ViewBag.Rooms = rooms;
+						return View(model);
+					}
+					else
+					{
+						ViewBag.Message = "Немає вільних кімнат";
+						return View(model);
+					}					
+				}
+				ViewBag.Message = "";
+				ViewBag.Rooms = rooms;
+				return View(model);
+
+			}
+			ViewBag.Message = "Немає вільних кімнат";
+			return View(model);
+		}
+
 
 		public async Task<IActionResult> GetRoom(/*[FromServices] IComment _comment, */string roomId, string? returnUrl)
 		{

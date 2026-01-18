@@ -64,40 +64,10 @@ namespace HMS.Repositories
 			return await _context.Rooms.FirstOrDefaultAsync(e => e.Id.ToString() == id);
 		}
 
-		public PagedList<Room> GetRoomsWithAdditionalOptions(string hotelId, RoomType[] type, int[] pricePerNight, QueryOptions options)
+		public PagedList<Room> GetRoomsWithAdditionalOptions(string hotelId, RoomType[] type, string city, int capacity, QueryOptions options)
 		{
 			IQueryable<Room> rooms = _context.Rooms.Include(e => e.Hotel);
-
-
-			if (pricePerNight != null && pricePerNight.Length > 0)
-			{
-				if (!pricePerNight.Contains(1))
-				{
-					rooms = rooms.Except(rooms.Where(e => e.PricePerNight < 100));
-				}
-				if (!pricePerNight.Contains(2))
-				{
-					rooms = rooms.Except(rooms.Where(e => e.PricePerNight >= 100 && e.PricePerNight < 200));
-				}
-				if (!pricePerNight.Contains(3))
-				{
-					rooms = rooms.Except(rooms.Where(e => e.PricePerNight >= 200 && e.PricePerNight < 300));
-				}
-				if (!pricePerNight.Contains(4))
-				{
-					rooms = rooms.Except(rooms.Where(e => e.PricePerNight >= 300 && e.PricePerNight < 400));
-				}
-				if (!pricePerNight.Contains(5))
-				{
-					rooms = rooms.Except(rooms.Where(e => e.PricePerNight >= 400 && e.PricePerNight < 500));
-				}
-				if (!pricePerNight.Contains(6))
-				{
-					rooms = rooms.Except(rooms.Where(e => e.PricePerNight >= 500));
-				}
-			}
-
-
+									
 			if (hotelId != "all" && hotelId != null)
 			{
 				rooms = rooms.Where(e => e.HotelId.Equals(hotelId));
@@ -119,6 +89,15 @@ namespace HMS.Repositories
 				}
 			}
 
+			if (city != null && city.Length > 0)
+			{
+				rooms = rooms.Where(e => e.Hotel.City.Contains(city) || e.Hotel.CityEng.Contains(city));
+			}
+
+			if (capacity > 0)
+			{
+				rooms = rooms.Where(e => e.Capacity >= capacity);
+			}
 
 			return new PagedList<Room>(rooms, options);
 		}

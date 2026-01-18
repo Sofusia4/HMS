@@ -8,6 +8,7 @@ namespace HMS.Interfaces
 		PagedList<Hotel> GetAll(QueryOptions options);
 		Task<IEnumerable<Hotel>> GetAllHotelsAsync();
 		Task<IEnumerable<Hotel>> GetAllHotelsWithRoomsAsync();
+		Task<List<string>> GetAllCitiesAsync();
 		Task<Hotel> GetHotelAsync(string id);
 		Task AddHotelAsync(Hotel hotel);
 		Task UpdateHotelAsync(Hotel hotel);

@@ -44,6 +44,11 @@ namespace HMS.Repositories
 			return new PagedList<Hotel>(_context.Hotels, options);
 		}
 
+		public async Task<List<string>> GetAllCitiesAsync()
+		{
+			return await _context.Hotels.Select(e => e.City).Distinct().ToListAsync();
+		}
+
 		public async Task<IEnumerable<Hotel>> GetAllHotelsAsync()
 		{
 			return await _context.Hotels.ToListAsync();

@@ -1,0 +1,165 @@
+﻿@model OrderViewModel
+
+<!-- Shop - Pizza HTML Template -->
+<div class="blog-section donuts">
+	<div class="container">
+		<div class="row">
+
+			<div id="content" class="all-blog">
+				<div class="breadcrumb-main">
+					<div class="breadcrumb-container clearfix">
+						<h1 class="page-title">Home</h1>
+
+						<ul class="breadcrumb">
+							<li><a asp-action="Index" asp-controller="Home">Home</a></li>
+						</ul>
+					</div>
+				</div>
+				@if (ViewBag.Message != null && ViewBag.Message != "")
+				{
+					<div class="row">
+						<div class="category-desc col-sm-12">
+							<p>
+								ViewBag.Message
+							</p>
+						</div>
+					</div>
+				}
+				
+				<div class="category-info">
+					<div class="row">
+						<div class="col-sm-7 col-xs-12 category-sorting">
+							<form asp-action="FindRoomsForm" asp-controller="Home" method="post" enctype="multipart/form-data">
+								<div class="sort-cat">
+									<div class="text-category-sort">
+										<label asp-for="City" class="input-group-addon" for="input-sort">Місто:</label>
+									</div>
+									<div class="select-cat-sort">
+										<select asp-for="City" id="input-sort" class="form-control">
+											<option value="all" selected="selected">усі міста</option>
+											@foreach (var city in ViewBag.Cities)
+											{
+												<option value="@city">
+													@city
+												</option>
+											}
+										</select>
+									</div>
+								</div>
+								<div class="limit-cat">
+									<div class="text-category-limit">
+										<label asp-for="People" class="input-group-addon" for="input-limit">Show:</label>
+									</div>
+									<div class="select-cat-limit">
+										<select asp-for="People" id="input-limit" class="form-control" >
+											<option value="1" selected="selected">1</option>
+											@for (int i = 2; i < ViewBag.MaxCapacity; i++)
+											{
+												<option value="@i">
+													@i
+												</option>
+											}
+										</select>
+									</div>
+								</div>
+								<br />
+								<div class="limit-cat">
+									<div class="text-category-limit">
+										<label asp-for="StartDate" class="input-group-addon" for="input-limit">Start:</label>
+									</div>
+									<div class="select-cat-limit">
+										<input asp-for="StartDate" id="startDate" class="form-control" type="date" />
+									</div>
+								</div>
+								<br />
+								<div class="limit-cat">
+									<div class="text-category-limit">
+										<label asp-for="EndDate" class="input-group-addon" for="input-limit">End:</label>
+									</div>
+									<div class="select-cat-limit">
+										<input asp-for="EndDate" id="endDate" class="form-control" type="date" />
+									</div>
+								</div>
+								<br />
+								<div class="limit-cat">
+									<div class="select-cat-limit">
+										<input type="submit" value="Шукати" class="form-control" />
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				@* <div class="category-info">
+					<div class="row">
+						<div class="col-sm-7 col-xs-12 category-sorting">
+							<div class="sort-cat">
+								<div class="text-center">
+
+									@{
+										ViewBag.searches = new string[] { "Name", "Category.Name", "Type" };
+										ViewBag.sorts = new string[] { "Name", "Category.Name", "Type", "Price", "Weight", "Calories" };
+									}
+									@Html.Partial("PageOptions", Model.Rooms)
+									<div class="col-1 text-right">
+										<a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Reset</a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div> *@
+
+				@if (ViewBag.Rooms != null)
+				{
+					var rooms = ViewBag.Rooms as IEnumerable<Room>;
+					if (rooms.Count() > 0)
+					{
+						<div class="category-row row" id="rooms">
+							@foreach (var item in rooms)
+							{
+								@Html.Partial("_Room", item)
+							}
+						</div>
+
+						@* <div class="text-center">
+							<button id="showMore" class="btn btn-primary">Show more</button>
+						</div>
+
+
+						<div class="pagination-main">
+							<div class="row">
+								<div class="col-sm-6 text-left">
+									<div class="text-center">
+										@await Html.PartialAsync("Pages", rooms)
+									</div>
+								</div>
+								<div class="col-sm-6 text-right"></div>
+							</div>
+						</div> *@
+					}
+				}				
+				
+			</div>
+		</div>
+	</div>
+</div>
+<!-- HTML Template -->
+@section Scripts {
+	<script>
+		var page = 2; 
+		var pageSize = 10;
+
+		$("#showMore").click(function () {
+			$.ajax({
+				url: "/get-more-rooms?page=" + page + "&pageSize=" + pageSize,
+				success: function (data) {
+					$("#rooms").append(data);
+					page++;
+				}
+			});
+		});
+	</script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery-ajax-unobtrusive@3.2.6/dist/jquery.unobtrusive-ajax.min.js"></script>
+}

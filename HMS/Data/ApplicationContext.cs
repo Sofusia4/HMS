@@ -9,8 +9,9 @@ namespace HMS.Data
         public DbSet<UserDelete> UserDeletes { get; set; }
 		public DbSet<Hotel> Hotels { get; set; }
 		public DbSet<Room> Rooms { get; set; }
+		public DbSet<RoomOrder> RoomOrders { get; set; }
 
-        public ApplicationContext(DbContextOptions<ApplicationContext> options)
+		public ApplicationContext(DbContextOptions<ApplicationContext> options)
 			: base(options)
 		{
             //Database.EnsureDeleted();
@@ -21,10 +22,6 @@ namespace HMS.Data
 			modelBuilder.Entity<Hotel>()
 				   .HasMany<Room>(s => s.Rooms)
 				   .WithOne(c => c.Hotel);
-
-			//modelBuilder.Entity<Publication>().Property(e => e.TotalViews).HasDefaultValue(1);
-			//modelBuilder.Entity<Publication>().Property(e => e.CreatedAt).HasDefaultValueSql("GETDATE()");
-			//Добавить метод с установкой картинки по умолчанию для записи
 
 			base.OnModelCreating(modelBuilder);
 		}
