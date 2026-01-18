@@ -1,0 +1,61 @@
+﻿@using HMS.Models.Pages;
+@model PagedList<RoomOrder>
+@{
+    Layout = "_Layout";
+}
+
+<div id="content" class="col-sm-20  all-blog">
+    <div class="breadcrumb-main">
+        <div class="breadcrumb-container clearfix">
+            <h1 class="page-title">Orders</h1>
+            <ul class="breadcrumb">
+                <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                <li><a asp-action="MyOrders" asp-controller="Home">MyOrders</a></li>
+            </ul>
+        </div>
+    </div>
+    <a class="btn btn-sm btn-primary" asp-action="FindRoomsForm" asp-controller="Home">Зробити замовлення</a>
+    <div class="information-information">
+        <div class="text-center">
+            @{
+                ViewBag.searches = new string[] { "People" };
+                ViewBag.sorts = new string[] { "People", "TotalPrice", "StartDate", "EndDate" };
+            }
+            @Html.Partial("PageOptions", Model)
+            <div class="col-1 text-right">
+                <a asp-action="MyOrders" asp-controller="Home" class="btn btn-secondary">Reset</a>
+            </div>
+        </div>
+
+
+        <div class="p-5 mb-4 bg-light rounded-3 ovx table-responsive">
+            <table class="table">
+                <tr>
+                    <th>Кількість людей</th>
+                    <th>Початкова дата</th>
+                    <th>Кінцева дата</th>
+                    <th>Загальна ціна</th>
+                </tr>
+                @foreach (var order in Model)
+                {
+                    <tr data-rowid="@order.Id">
+                        <td>@order.PeopleCount</td>
+                        <td>@order.StartDate.ToShortDateString()</td>
+                        <td>@order.EndDate.ToShortDateString()</td>
+                        <td>@order.TotalPrice</td>
+                    </tr>
+                }
+            </table>
+
+            <div class="text-center">
+                @await Html.PartialAsync("Pages", Model)
+            </div>
+                       
+
+        </div>
+
+
+    </div>
+
+</div>
+

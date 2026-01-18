@@ -15,7 +15,7 @@ namespace HMS.ViewModels
 		public int Number { get; set; }
 
         [Required]
-        [Display(Name = "RomType")]
+        [Display(Name = "RoomType")]
         public RoomType RoomType { get; set; }
 
         [Required]

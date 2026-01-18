@@ -1,0 +1,105 @@
+﻿@using HMS.Models.Pages;
+@model PagedList<RoomOrder>
+@{
+    Layout = "_PanelLayout";
+}
+
+<div id="content" class="col-sm-9  all-blog">
+    <div class="breadcrumb-main">
+        <div class="breadcrumb-container clearfix">
+            <h1 class="page-title">Orders</h1>
+            <ul class="breadcrumb">
+                <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                <li><a asp-action="Orders" asp-controller="Order">Orders</a></li>
+            </ul>
+        </div>
+    </div>
+    <a class="btn btn-sm btn-primary" asp-action="CreateOrUpdateOrder" asp-controller="Order">Add Order</a>
+    <div class="information-information">
+        <div class="text-center">
+            @{
+                ViewBag.searches = new string[] { "UserId", "RoomId", "People" };
+                ViewBag.sorts = new string[] { "UserId", "RoomId", "People", "TotalPrice", "StartDate", "EndDate" };
+            }
+            @Html.Partial("PageOptions", Model)
+            <div class="col-1 text-right">
+                <a asp-action="Orders" asp-controller="Order" class="btn btn-secondary">Reset</a>
+            </div>
+        </div>
+
+
+        <div class="p-5 mb-4 bg-light rounded-3 ovx table-responsive">
+            <table class="table">
+                <tr>
+                    <th>OrderId</th>
+                    <th>RoomId</th>
+                    <th>UserId</th>
+                    <th>PeopleCount</th>
+                    <th>StartDate</th>
+                    <th>EndDate</th>
+                    <th>TotalPrice</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @foreach (var order in Model)
+                {
+                    <tr data-rowid="@order.Id">
+                        <td>@order.Id</td>
+                        <td>@order.RoomId</td>
+                        <td>@order.UserId</td>
+                        <td>@order.PeopleCount</td>
+                        <td>@order.StartDate.ToShortDateString()</td>
+                        <td>@order.EndDate.ToShortDateString()</td>
+                        <td>@order.TotalPrice</td>
+                        <td><a class="btn btn-sm btn-primary" asp-action="CreateOrUpdateOrder" asp-controller="Order" asp-route-roomId="@order.Id">Edit</a></td>
+                        <td>
+                            <button onclick="deleteOrder('@order.Id')" class="btn btn-sm btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                }
+            </table>
+
+            <div class="text-center">
+                @await Html.PartialAsync("Pages", Model)
+            </div>
+
+            @await Html.PartialAsync("_Modal", "Delete selected order?")
+
+            @section Scripts {
+                <script>
+                    async function deleteOrder(OrderId) {
+
+                        const btnYes = document.getElementById('btn-Yes');
+                        const btnNo = document.getElementById('btn-No');
+
+                        $('#confirmModal').modal('show');
+
+                        btnYes.onclick = () => {
+                            const deleteItem = fetch(`/order/delete-order/?orderId=${orderId}`, { method: 'DELETE' })
+                                .then(response => {
+                                    if (!response.ok) {
+                                        throw new Error('Network response was not ok');
+                                    }
+                                    document.querySelector("tr[data-rowid='" + orderId + "']").remove();
+                                    $('#confirmModal').modal('hide');
+                                })
+                                .catch(error => {
+                                    console.error('There was a problem with the fetch operation:', error);
+                                });
+                        }
+                        //Если нажали нет, скрываем
+                        btnNo.onclick = () => {
+                            $('#confirmModal').modal('hide');
+                        }
+                    }
+                </script>
+            }
+
+        </div>
+
+
+    </div>
+
+</div>
+

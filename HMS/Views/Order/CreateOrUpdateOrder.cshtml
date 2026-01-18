@@ -1,0 +1,87 @@
+﻿@using HMS.ViewModels;
+@model CreateOrUpdateOrderViewModel
+@{
+    Layout = "_PanelLayout";
+    string actionName = Model.Id == "create" ? "Create" : "Update";
+}
+
+@Html.Partial("_StylesPartial", Model)
+
+
+
+<div id="content" class="col-sm-9  all-blog">
+    <div class="breadcrumb-main">
+        <div class="breadcrumb-container clearfix">
+            <h1 class="page-title">@actionName order</h1>
+            <ul class="breadcrumb">
+                <li><a asp-action="Index" asp-controller="Home">Home</a></li>
+                <li><a asp-action="Orders" asp-controller="Order">Orders</a></li>
+                <li><a asp-action="CreateOrUpdateOrder" asp-controller="Order">@actionName order</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="information-information">
+        <div class="row">
+            <div class="col-sm-6">
+                <form asp-action="CreateOrUpdateOrder" asp-controller="Order" style="width:690px" method="post" enctype="multipart/form-data" class="form-horizontal well">
+                    <fieldset id="account">
+                        <legend>@actionName order</legend>
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <div class="form-group required">
+                            <label asp-for="People" class="col-sm-2 control-label">People</label>
+                            <div class="col-sm-10">
+                                <input asp-for="People" type="text" name="people" value="@Model.People" placeholder="1" class="form-control">
+                            </div>
+                            <span asp-validation-for="People" class="text-danger"></span>
+                        </div>
+                        <div class="form-group required">
+                            <label asp-for="TotalPrice" class="col-sm-2 control-label">TotalPrice</label>
+                            <div class="col-sm-10">
+                                <input asp-for="TotalPrice" type="text" name="totalprice" value="@Model.TotalPrice" placeholder="TotalPrice" class="form-control">
+                            </div>
+                            <span asp-validation-for="TotalPrice" class="text-danger"></span>
+                        </div>
+                        <div class="form-group required">
+                            <label asp-for="StartDate" class="col-sm-2 control-label">StartDate</label>
+                            <div class="col-sm-10">
+                                <input asp-for="StartDate" type="date" name="startdate" value="@Model.StartDate" placeholder="01.01.2026" class="form-control">
+                            </div>
+                            <span asp-validation-for="StartDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group required">
+                            <label asp-for="EndDate" class="col-sm-2 control-label">EndDate</label>
+                            <div class="col-sm-10">
+                                <input asp-for="EndDate" type="date" name="enddate" value="@Model.EndDate" placeholder="02.01.2026" class="form-control">
+                            </div>
+                            <span asp-validation-for="EndDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group required">
+                            <label asp-for="RoomId" class="col-sm-2 control-label">RoomId</label>
+                            <div class="col-sm-10">
+                                <input asp-for="RoomId" type="text" name="roomid" value="@Model.RoomId" placeholder="RoomId" class="form-control">
+                            </div>
+                            <span asp-validation-for="RoomId" class="text-danger"></span>
+                        </div>
+                                                
+                    </fieldset>
+                    <input type="hidden" asp-for="Id" value="@Model.Id">
+                    <input type="submit" value="Save" class="btn btn-primary">
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    // переопределение валидации на стороне клиента
+    $.validator.methods.range = function (value, element, param) {
+        var globalizedValue = value.replace(",", ".");
+        return this.optional(element) || (globalizedValue >= param[0] && globalizedValue <= param[1]);
+    }
+
+    $.validator.methods.number = function (value, element) {
+        return this.optional(element) || /^-?(?:\d+|\d{1,3}(?:[\s\.,]\d{3})+)(?:[\.,]\d+)?$/.test(value);
+    }
+</script>

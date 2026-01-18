@@ -33,68 +33,106 @@
 						</ul>
 					</div>
 				</div>
-				<a asp-action="FindRoomsForm" asp-action="Home" class="btn btn-primary">FindRoomForm</a>
-				@* @Html.Partial("_OrderFormPartial", Model.Order)
-				<div class="category-info">
-					<div class="row">
-						<div class="col-sm-7 col-xs-12 category-sorting">
-							<div class="sort-cat">
-								<div class="text-center">
-
-									@{
-										ViewBag.searches = new string[] { "Name", "Category.Name", "Type" };
-										ViewBag.sorts = new string[] { "Name", "Category.Name", "Type", "Price", "Weight", "Calories" };
-									}
-									@Html.Partial("PageOptions", Model.Rooms)
-									<div class="col-1 text-right">
-										<a asp-action="Index" asp-controller="Home" class="btn btn-secondary">Reset</a>
-									</div>
-								</div>
-							</div>
+				<div>
+					<a asp-action="FindRoomsForm" asp-action="Home" class="btn btn-primary">FindRoomForm</a>
+				</div>
+				
+				<div class="article-blog">
+					<div class="blog-description">
+						<div class="blog_title">
+							Horizon Stay Hotel — комфорт і елегантність поза часом
+						</div>
+						<div class="blog-desc">
+							Horizon Stay — це сучасний готель високого класу, розташований у зручному районі великого міста, що поєднує ділову активність, культурне життя та спокій для відпочинку. Готель створений для гостей, які цінують якісний сервіс, продуманий комфорт і увагу до кожної деталі.
+							<br />
+							Horizon Stay Hotel — це поєднання сучасних стандартів гостинності, стильного дизайну та атмосфери затишку.
+							Завдяки високому рівню обслуговування готель здобув визнання серед ділових мандрівників і туристів.
+							Професійна команда, індивідуальний підхід до кожного гостя та широкий спектр послуг роблять Horizon Stay помітним об’єктом на готельній мапі України.
 						</div>
 					</div>
-				</div>
-
-				<div class="category-row row" id="rooms">
-					@foreach (var item in Model.Rooms)
-					{
-						@Html.Partial("_Room", item)
-					}
-				</div>
-
-				<div class="text-center">
-					<button id="showMore" class="btn btn-primary">Show more</button>
-				</div>
-
-
-				<div class="pagination-main">
-					<div class="row">
-						<div class="col-sm-6 text-left">
-							<div class="text-center">
-								@await Html.PartialAsync("Pages", Model.Rooms)
-							</div>
+					<div class="blog-description">
+						<div class="blog_title">
+							Розташування готелю Horizon Stay
 						</div>
-						<div class="col-sm-6 text-right"></div>
+						<div class="blog-desc">
+							Готель має вигідне розташування з комфортною транспортною розв’язкою.
+							До залізничного вокзалу можна дістатися приблизно за 15–20 хвилин на таксі, до міжнародного аеропорту — менш ніж за годину.
+							У безпосередній близькості знаходяться ділові центри, торгові зони, ресторани та культурні пам’ятки міста, що робить Horizon Stay ідеальним вибором як для роботи, так і для відпочинку.
+						</div>
 					</div>
+					<div class="blog-description">
+						<div class="blog_title">
+							Історія та концепція готелю
+						</div>
+						<div class="blog-desc">
+							Horizon Stay — це готель, створений з ідеєю гармонійного поєднання сучасних архітектурних рішень і функціонального комфорту.
+							Проєкт готелю розроблявся з урахуванням актуальних світових тенденцій у сфері гостинності: просторі інтер’єри, якісні матеріали, продумане освітлення та технологічне оснащення.
+							<br />
+							З моменту відкриття готель постійно вдосконалюється, оновлює номерний фонд і розширює перелік послуг, залишаючись вірним головному принципу — забезпечувати гостям максимальний комфорт і спокій.
+						</div>
+					</div>
+					<div class="blog-description">
+						<div class="blog_title">
+							Номерний фонд та відомі гості
+						</div>
+						<div class="blog-desc">
+							У Horizon Stay представлені номери різних категорій — від комфортних стандартів до просторих люксів.
+							Кожен номер оформлений у стриманому сучасному стилі та обладнаний усім необхідним для тривалого або короткострокового проживання.
+							<br />
+							Готель часто обирають представники бізнесу, учасники міжнародних заходів, митці та гості міста, які цінують приватність і якісний сервіс.
+						</div>
+					</div>
+					<div class="blog-description">
+						<div class="blog_title">
+							Ресторани та бари Horizon Stay
+						</div>
+						<div class="blog-desc">
+							Ресторан Horizon Dining запрошує гостей на сніданки у форматі «шведський стіл» з різноманіттям свіжих і якісних страв.
+							Меню поєднує європейську класику та авторські позиції від шеф-кухаря.
+							<br />
+							Упродовж дня гості можуть відвідати lounge-зону або бар готелю, де пропонуються легкі закуски, десерти та авторські напої.
+							У теплу пору року доступна відкрита тераса — ідеальне місце для ділових зустрічей або вечірнього відпочинку.
+						</div>
+					</div>
+					<div class="blog-description">
+						<div class="blog_title">
+							SPA та відпочинок у Horizon Stay
+						</div>
+						<div class="blog-desc">
+							Для відновлення сил гості можуть скористатися Wellness-зоною готелю.
+							До послуг відвідувачів — тренажерний зал, сауна, зона релаксу та масажні процедури.
+							SPA-програми допомагають зняти напругу після насиченого дня та налаштуватися на нові враження.
+						</div>
+					</div>
+					<div class="blog-description">
+						<div class="blog_title">
+							Додаткові переваги готелю
+						</div>
+						<div class="blog-desc">
+							Horizon Stay пропонує трансфер до вокзалів та аеропортів, парковку для гостей, оренду автомобілів і послуги консьєржа.
+							Персонал завжди готовий допомогти з організацією дозвілля, екскурсій або ділових заходів.
+							<br />
+							Для бізнес-гостей доступні сучасні конференц-зали різної місткості, обладнані всім необхідним для проведення зустрічей, семінарів і презентацій.
+						</div>
+					</div>
+					<div class="blog-description">
+						<div class="blog_title">
+							Безпека та укриття
+						</div>
+						<div class="blog-desc">
+							Готель Horizon Stay обладнаний укриттям, яким гості можуть скористатися під час повітряної тривоги.
+							Укриття розташоване на підземному рівні та забезпечене вентиляцією, місцями для сидіння і відпочинку, запасами води та необхідними засобами безпеки.
+							Персонал готелю проводить інструктаж при поселенні, а навігаційні вказівники розміщені на всій території комплексу.
+						</div>
+					</div>
+
 				</div>
-				<div class="row">
-					<div class="category-img col-sm-12">
-						<img src="assets/images/banner.png" alt="shop" title="shop"
-							 class="img-thumbnail">
-					</div>
-					<div class="category-desc col-sm-12">
-						<p>
-							Horizon Stay – це мережа готелів, що дарує відчуття свободи та відкриття нових можливостей. 
-							Ми створюємо простір, де комфорт поєднується з натхненням для подорожей і незабутніх вражень. 
-							Horizon Stay – ваш ідеальний вибір для відпочинку, роботи та відкриття нових горизонтів у будь-якому куточку світу.
-						</p>
-					</div>
-				</div> *@
 			</div>
+			
 		</div>
 	</div>
 </div>
-<!-- .Shop - Pizza HTML Template -->
+<!-- HTML Template -->
 @section Scripts {
 	<script>
 		var page = 2; //Начинаем со второй страницы, так как первая уже показана

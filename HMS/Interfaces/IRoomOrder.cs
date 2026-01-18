@@ -7,7 +7,8 @@ namespace HMS.Interfaces
 	{
 		Task<IEnumerable<RoomOrder>> GetRoomOrdersWithPageAsync(int page, int pageSize);
 		PagedList<RoomOrder> GetAllRoomOrdersByRoom(QueryOptions options, string roomId);
-		PagedList<RoomOrder> GetAll(QueryOptions options);
+		PagedList<RoomOrder> GetAllRoomOrdersByUser(QueryOptions options, string userId);
+        PagedList<RoomOrder> GetAll(QueryOptions options);
 		//PagedList<Room> GetRoomsWithAdditionalOptions(string hotelId, RoomType[] type, string city, int capacity, QueryOptions options);
 		Task<IEnumerable<RoomOrder>> GetAllRoomOrdersAsync();
 		Task<IEnumerable<RoomOrder>> GetAllRoomOrdersWithRoomsAndUsersAsync();

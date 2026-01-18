@@ -2,17 +2,21 @@
 using HMS.Interfaces;
 using HMS.Models;
 using HMS.Models.Pages;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
+using System.Security.Claims;
 
 namespace HMS.Repositories
 {
 	public class RoomOrderRepository : IRoomOrder
 	{
 		private readonly ApplicationContext _context;
-		public RoomOrderRepository(ApplicationContext context)
+		private readonly UserManager<User> _userManager;
+		public RoomOrderRepository(ApplicationContext context, UserManager<User> userManager)
 		{
 			_context = context;
+			_userManager = userManager;
 		}
 		public async Task AddRoomOrderAsync(RoomOrder order)
 		{
@@ -23,8 +27,8 @@ namespace HMS.Repositories
 			}
 			if (!String.IsNullOrEmpty(order.UserId))
 			{
-				var user = _context.Users.FirstOrDefault(e => e.Id.ToString() == order.UserId);
-				order.User = user;
+				var currentUser = await _userManager.FindByIdAsync(order.UserId);
+				order.User = currentUser;
 			}
 
 			_context.RoomOrders.Add(order);
@@ -56,8 +60,12 @@ namespace HMS.Repositories
 		{
 			return new PagedList<RoomOrder>(_context.RoomOrders.Include(e => e.Room).ThenInclude(e => e.Hotel).Where(e => e.RoomId == roomId), options);
 		}
+        public PagedList<RoomOrder> GetAllRoomOrdersByUser(QueryOptions options, string userId)
+        {
+            return new PagedList<RoomOrder>(_context.RoomOrders.Include(e => e.Room).Include(e => e.User).Where(e => e.UserId.Equals(userId)), options);
+        }
 
-		public async Task<IEnumerable<RoomOrder>> GetAllRoomOrdersByRoomAsync(string roomId)
+        public async Task<IEnumerable<RoomOrder>> GetAllRoomOrdersByRoomAsync(string roomId)
 		{
 			return await _context.RoomOrders.Include(e => e.Room).ThenInclude(e => e.Hotel).Where(e => e.RoomId == roomId).ToListAsync();
 		}

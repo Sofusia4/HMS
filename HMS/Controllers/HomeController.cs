@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using HMS.ViewModels;
 using System.Diagnostics;
 using System.Text;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace HMS.Controllers
 {
@@ -17,7 +19,7 @@ namespace HMS.Controllers
 		private readonly IRoomOrder _orders;
 
 
-		private static string retUrl, pubId, message = "";
+		private static string retUrl, pubId;
 
 		public HomeController(IHotel hotels, IRoom rooms, IRoomOrder orders)
 		{
@@ -71,6 +73,11 @@ namespace HMS.Controllers
 
 			if (ModelState.IsValid)
 			{
+				ViewBag.City = model.City;
+				ViewBag.People = model.People;
+				ViewBag.StartDate = model.StartDate;
+				ViewBag.EndDate = model.EndDate;
+
 				var rooms = await _rooms.GetAllRoomsWithHotelsAsync();
 				var orders = await _orders.GetAllRoomOrdersWithRoomsAndUsersAsync();
 				if (model.City != null && model.City != "all")
@@ -108,6 +115,61 @@ namespace HMS.Controllers
 			ViewBag.Message = "Немає вільних кімнат";
 			return View(model);
 		}
+
+		[Authorize]
+		[HttpPost]
+		public async Task<IActionResult> MakeOrder([FromServices] UserManager<User> _userManager, string roomId, int people, DateTime startDate, DateTime endDate)
+		{
+			if (people > 0 && startDate != null && endDate != null)
+			{
+				int days = endDate.Subtract(startDate).Days;
+				if (days > 0) 
+				{
+					Room room = await _rooms.GetRoomAsync(roomId);
+					var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+					if (userId == null)
+					{
+						return NotFound();
+					}
+					var currentUser = await _userManager.FindByIdAsync(userId);
+
+					if (room != null && currentUser != null)
+					{
+						RoomOrder order = new RoomOrder
+						{
+							StartDate = startDate,
+							EndDate = endDate,
+							PeopleCount = people,
+							TotalPrice = days * room.PricePerNight,
+							RoomId = roomId,
+							Room = room,
+							UserId = currentUser.Id,
+							User = currentUser
+						};
+						await _orders.AddRoomOrderAsync(order);
+					}
+				}				
+			}
+			return RedirectToAction("Index");
+		}
+
+		[Authorize]
+		[HttpGet]
+		public async Task<IActionResult> MyOrders([FromServices] UserManager<User> _userManager, QueryOptions options)
+		{
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (userId == null)
+            {
+                return NotFound();
+            }
+            var currentUser = await _userManager.FindByIdAsync(userId);
+
+			var orders = _orders.GetAllRoomOrdersByUser(options, currentUser.Id);
+
+            return View(orders);
+		}
+
+
 
 
 		public async Task<IActionResult> GetRoom(/*[FromServices] IComment _comment, */string roomId, string? returnUrl)

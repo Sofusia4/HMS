@@ -3,17 +3,13 @@
 <div class="product-layout product-grid col-lg-4 col-md-6 col-sm-4 col-xs-4">
 	<div class="product-thumb">
 		<div class="image">
-			<a asp-action="GetProduct" asp-controller="Home" asp-route-productId="@Model.Id" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()" class="thumb-image">
-				<img src="@Model.FullImageName" alt="@Model.Number" title="@Model.Number" class="img-responsive">
-			</a>
+			<img src="@Model.FullImageName" alt="@Model.Number" title="@Model.Number" class="img-responsive">
 		</div>
 		<div class="product-description">
 			<div class="caption">
 				<div class="title-rating clearfix">
 					<h4 class="product-title">
-						<a asp-action="GetProduct" asp-controller="Home" asp-route-productId="@Model.Id">
-							@Model.Number
-						</a>
+						@Model.Number
 					</h4>
 				</div>
 				<div class="price-cartbtn clearfix">
@@ -30,11 +26,11 @@
 						@Model.Description
 					</p>
 
-					<form asp-action="AddToCart" asp-controller="Cart" asp-route-productId="@Model.Id" asp-route-returnUrl="@ViewContext.HttpContext.Request.PathAndQuery()">
+					<form asp-action="MakeOrder" asp-controller="Home" asp-route-roomId="@Model.Id" asp-route-people="@ViewBag.People" asp-route-startDate="@ViewBag.StartDate" asp-route-endDate="@ViewBag.EndDate">
 						@Html.AntiForgeryToken()
 						<button class="addcart" type="submit">
 							<i class="icon-shopping-bag hidden"></i>
-							<span class="">Order Now</span>
+							<span class="">Забронювати</span>
 						</button>
 					</form>
 					
